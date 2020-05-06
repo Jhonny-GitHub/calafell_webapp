@@ -1,11 +1,13 @@
 #container {
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  display: block;
+  top: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('http://digitbcn.com/WebAppRipoll/background.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 #container strong {
@@ -24,4 +26,11 @@
 
 #container a {
   text-decoration: none;
+}
+
+#img-card-qr {
+  display: block;
+  width: 35vh;
+  margin: 0 auto;
+  padding: 3.5em 0;
 }
