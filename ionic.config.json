@@ -1,0 +1,7 @@
+{
+  "name": "calafell-demo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
