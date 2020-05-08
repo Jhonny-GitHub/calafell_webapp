@@ -28,7 +28,9 @@
           <ion-card-title>{{track.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-icon name="play-outline" style="width: 50px; height: 50px;" (click)="start(track)" ></ion-icon>
+          <ion-button fill="clear" style="height: 50px; width: 50px;" color="danger" (click)="start(track)">
+            <ion-icon button name="play-outline" style="width: 50px; height: 50px;" ></ion-icon>
+          </ion-button>
         </ion-card-content>
       </ion-card>
     </ion-item>
