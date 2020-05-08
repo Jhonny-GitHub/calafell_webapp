@@ -23,19 +23,19 @@
   <div class="ion-padding">
 
     
-      <ion-card *ngFor="let track of playlist">
+      <ion-card *ngFor="let track of playlist; let i = index">
         <ion-card-header>
           <ion-card-title>{{track.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <ion-row>
-            <ion-button fill="clear" color="danger" *ngIf=(!isPlaying) (click)="start(track); tooglePlayer(false)">
+            <ion-button fill="clear" color="danger" *ngIf=(!isPlaying[i]) (click)="start(i, track); tooglePlayer(i, false)">
               <ion-icon button name="play-outline"></ion-icon>
             </ion-button>
-            <ion-button fill="clear" color="danger" *ngIf=(isPlaying) (click)="tooglePlayer(true)">
+            <ion-button fill="clear" color="danger" *ngIf=(isPlaying[i]) (click)="tooglePlayer(i,true)">
               <ion-icon button name="pause-outline"></ion-icon>
             </ion-button>
-            <ion-range #range [(ngModel)]="progress" max="100" color="danger" (touchend)="seek()" (mouseup)="seek()"> </ion-range>
+            <ion-range #range [(ngModel)]="progress[i]" max="100" color="danger" (touchend)="seek(i)" (mouseup)="seek(i)"> </ion-range>
           </ion-row>
         </ion-card-content>
       </ion-card>

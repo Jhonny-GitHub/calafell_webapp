@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, AfterViewInit } from '@angular/core';
 import { Howl } from 'howler';
 import { IonRange } from '@ionic/angular';
 
@@ -42,36 +42,43 @@ export class AudioguiaPage implements OnInit {
   ];
   
   activeTrack: Track  = null;
+  activeIndex = 0;
   player: Howl = null;
-  isPlaying = false;
-  progress = 0;
-  @ViewChild('range', { static : false }) range: IonRange;
+  isPlaying = {};
+  progress = {};
+  timeout = null;
+  @ViewChildren('range') ranges: QueryList<IonRange>;
 
-  constructor () {}
+  constructor () {
+  }
 
-  start(track: Track){
-    if(this.player){
-      this.player.stop();
-    }
+  start(i: number, track: Track){
+    clearTimeout(this.timeout);
+    this.progress = {}
+    this.isPlaying = {}
+    console.log("start", i, track);
+    if(this.player && this.activeIndex === i) return this.tooglePlayer(false, track);
     this.player = new Howl({
       src: [track.path],
       html5: true,
       onplay: () => {
         console.log('onplay');
-        this.isPlaying = true; 
+        this.isPlaying[i] = true; 
         this.activeTrack = track;
-        this.updateProgress();
+        this.activeIndex = i;
+        this.updateProgress(i);
       },
       onend: () => {
         console.log('onend');
-        this.isPlaying = false;
+        this.isPlaying[i] = false;
       }
     });
     this.player.play();
   }
 
-  tooglePlayer(pause){
-    this.isPlaying = !pause;
+  tooglePlayer(i, pause){
+    console.log("toogle player pause", pause);
+    this.isPlaying[i] = !pause;
     if (pause){
       this.player.pause();
     } else {
@@ -79,17 +86,20 @@ export class AudioguiaPage implements OnInit {
     }
   }
 
-  seek(){
-    let newValue = +this.range.value;
+  seek(i: number){
+    console.log("seek", i);
+    const range = this.ranges.toArray()[i];
+    let newValue = +range.value;
     let duration = this.player.duration();
     this.player.seek(duration * (newValue / 100));
   }
 
-  updateProgress(){
+  updateProgress(i){
+    console.log("update i",i);
     let seek = this.player.seek();
-    this.progress = (seek / this.player.duration()) * 100 || 0;
-    setTimeout(() => {
-      this.updateProgress();
+    this.progress[i] = (seek / this.player.duration()) * 100 || 0;
+    this.timeout = setTimeout(() => {
+      this.updateProgress(i);
     },10)
   }
 
