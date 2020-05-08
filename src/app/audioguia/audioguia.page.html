@@ -4,7 +4,7 @@
     <ion-icon style="width: 40px; height: 30px;" name="logo-facebook"></ion-icon>
     <ion-icon style="width: 40px; height: 30px;" name="logo-twitter"></ion-icon>-->
     <ion-item color="danger">
-      <ion-label>Idiomes</ion-label>
+      <ion-label></ion-label>
       <ion-select class="selector" interface="popover" color="danger" value="catala">
         <ion-select-option value="catala">Català</ion-select-option>
         <ion-select-option value="español">Español</ion-select-option>
@@ -22,18 +22,24 @@
 
   <div class="ion-padding">
 
-    <ion-item *ngFor="let track of playlist">
-      <ion-card>
+    
+      <ion-card *ngFor="let track of playlist">
         <ion-card-header>
           <ion-card-title>{{track.name}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-button fill="clear" style="height: 50px; width: 50px;" color="danger" (click)="start(track)">
-            <ion-icon button name="play-outline" style="width: 50px; height: 50px;" ></ion-icon>
-          </ion-button>
+          <ion-row>
+            <ion-button fill="clear" color="danger" *ngIf=(!isPlaying) (click)="start(track); tooglePlayer(false)">
+              <ion-icon button name="play-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" *ngIf=(isPlaying) (click)="tooglePlayer(true)">
+              <ion-icon button name="pause-outline"></ion-icon>
+            </ion-button>
+            <ion-range #range [(ngModel)]="progress" max="100" color="danger" (touchend)="seek()" (mouseup)="seek()"> </ion-range>
+          </ion-row>
         </ion-card-content>
       </ion-card>
-    </ion-item>
+    
     
   </div>
   

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Howl } from 'howler';
+import { IonRange } from '@ionic/angular';
 
 export interface Track{
   name: string;
@@ -43,6 +44,8 @@ export class AudioguiaPage implements OnInit {
   activeTrack: Track  = null;
   player: Howl = null;
   isPlaying = false;
+  progress = 0;
+  @ViewChild('range', { static : false }) range: IonRange;
 
   constructor () {}
 
@@ -52,13 +55,16 @@ export class AudioguiaPage implements OnInit {
     }
     this.player = new Howl({
       src: [track.path],
+      html5: true,
       onplay: () => {
         console.log('onplay');
         this.isPlaying = true; 
         this.activeTrack = track;
+        this.updateProgress();
       },
       onend: () => {
         console.log('onend');
+        this.isPlaying = false;
       }
     });
     this.player.play();
@@ -71,6 +77,20 @@ export class AudioguiaPage implements OnInit {
     } else {
       this.player.play();
     }
+  }
+
+  seek(){
+    let newValue = +this.range.value;
+    let duration = this.player.duration();
+    this.player.seek(duration * (newValue / 100));
+  }
+
+  updateProgress(){
+    let seek = this.player.seek();
+    this.progress = (seek / this.player.duration()) * 100 || 0;
+    setTimeout(() => {
+      this.updateProgress();
+    },10)
   }
 
   ngOnInit() {
