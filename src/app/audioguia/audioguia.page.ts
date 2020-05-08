@@ -70,6 +70,7 @@ export class AudioguiaPage implements OnInit {
       },
       onend: () => {
         console.log('onend');
+        clearTimeout(this.timeout);
         this.isPlaying[i] = false;
       }
     });
@@ -80,6 +81,7 @@ export class AudioguiaPage implements OnInit {
     console.log("toogle player pause", pause);
     this.isPlaying[i] = !pause;
     if (pause){
+      clearTimeout(this.timeout);
       this.player.pause();
     } else {
       this.player.play();
