@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'languages',
     loadChildren: () => import('./languages/languages.module').then( m => m.LanguagesPageModule)
   },
+  {
+    path: 'audioguia',
+    loadChildren: () => import('./audioguia/audioguia.module').then( m => m.AudioguiaPageModule)
+  },
 ];
 
 @NgModule({

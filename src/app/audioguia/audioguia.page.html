@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar color="danger"><!--
+    <ion-icon style="width: 40px; height: 30px;" name="logo-instagram"></ion-icon>
+    <ion-icon style="width: 40px; height: 30px;" name="logo-facebook"></ion-icon>
+    <ion-icon style="width: 40px; height: 30px;" name="logo-twitter"></ion-icon>-->
+    <ion-item color="danger">
+      <ion-label>Idiomes</ion-label>
+      <ion-select class="selector" interface="popover" color="danger" value="catala">
+        <ion-select-option value="catala">Català</ion-select-option>
+        <ion-select-option value="español">Español</ion-select-option>
+        <ion-select-option value="english">English</ion-select-option>
+        <ion-select-option value="français">Français</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="content">
+  <div id="logo">
+    <img src="http://digitbcn.com/WebAppRipoll/logo_calafell.png">
+  </div>
+
+  <div class="ion-padding">
+
+    <ion-item *ngFor="let track of playlist">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{track.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-icon name="play-outline" style="width: 50px; height: 50px;" (click)="start(track)" ></ion-icon>
+        </ion-card-content>
+      </ion-card>
+    </ion-item>
+    
+  </div>
+  
+</ion-content>

@@ -1,0 +1,20 @@
+#logo {
+      width: 45%;
+      padding-top: 3.5em;
+      margin: 0 auto;
+      margin-bottom: 1.5em;
+}
+
+ion-content{
+    --background: url('http://digitbcn.com/WebAppRipoll/background.jpeg');
+    --background-repeat: no-repeat;
+    --background-size: cover;  
+}
+
+#card-img{
+    margin: 0 auto;
+    image-resolution: 100%;
+}
+.selector{
+    --padding-start: left;
+}
